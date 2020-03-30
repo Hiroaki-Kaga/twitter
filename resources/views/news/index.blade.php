@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
-ニュース一覧表
+
     <div class="container">
         <hr color="#c0c0c0">
         @if (!is_null($headline))
