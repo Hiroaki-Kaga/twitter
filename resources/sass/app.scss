@@ -1,8 +1,24 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import "variables";
+/* Variables */
+@import 'variables';
 
-// Bootstrap
+$fa-font-path: "../webfonts";
+
+/* Bootstrap */
 @import '~bootstrap/scss/bootstrap';
+
+/* FontAwesome */
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+/* ここから追加 */
+/* pages */
+@import "top";
+@import "sign_up";
+@import "sign_in";
+@import "show"; 
+@import "edit"; 

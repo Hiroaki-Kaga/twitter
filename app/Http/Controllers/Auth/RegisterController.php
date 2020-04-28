@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider; //追加した
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+use Intervention\Image\Facades\Image; 
+
+use App\Services\CheckExtensionServices;
+use App\Services\FileUploadServices;
 
 class RegisterController extends Controller
 {
@@ -48,9 +55,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+           'name' => ['required', 'string', 'max:255'],
+           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+           'password' => ['required', 'string', 'min:8', 'confirmed'],
+           'img_name' => ['file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2000'], //この行を追加します
+           'self_introduction' => ['string', 'max:255'], //この行を追加します
         ]);
     }
 
@@ -60,12 +69,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+     protected function create(array $data)
     {
+
+        $imageFile = $data['img_name'];
+
+        $list = FileUploadServices::fileUpload($imageFile); //変更
+
+        list($extension, $fileNameToStore, $fileData) = $list; //変更
+
+        $data_url = CheckExtensionServices::checkExtension($fileData, $extension);
+        
+        $image = Image::make($data_url);
+        
+        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
+            'self_introduction' => $data['self_introduction'],
+            'sex' => $data['sex'],
+            'img_name' => $fileNameToStore,
         ]);
     }
 }

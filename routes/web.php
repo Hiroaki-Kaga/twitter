@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
+    Route::get('show/{id}', 'UserController@show')->name('users.show');
+    Route::get('edit/{id}', 'UserController@edit')->name('users.edit'); // この行を追記
+    Route::post('update/{id}', 'UserController@update')->name('users.update'); // この行を追記
 });
 
 Auth::routes();
 
+Route::get('/', function () {
+    return view('top');
+    });
+
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/timeline', 'Auth\TimelineController@showTimelinePage')->middleware("auth"); // <--- 追加
-Route::post('/timeline', 'Auth\TimelineController@postTweet')->middleware("auth");   // <--- 追加
+
+
