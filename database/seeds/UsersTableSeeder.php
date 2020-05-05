@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -13,8 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
     
-        // ここから追加
-        DB::table('users')->insert([
+          DB::table('users')->insert([
             ['name' => 'ジョブズ',
             'email' => 'user1@example.com',
             'sex' => '0',

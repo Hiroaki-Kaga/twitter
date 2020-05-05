@@ -12,16 +12,16 @@
       <div class="matchingNum">{{ $match_users_count }}人とマッチングしています</div>
       <h2 class="pageTitle">マッチングした人一覧</h2>
       <div class="matchingList">
-		                            		@foreach( $matching_users as $user)
+			                           	@foreach( $matching_users as $user)
           <div class="matchingPerson">
           <div class="matchingPerson_img"><img src="/storage/images/{{ $user->img_name}}"></div>
             <div class="matchingPerson_name">{{ $user->name }}</div>
 
-            {{-- <form method="POST" action="{{ route('chat.show') }}">
+            <form method="POST" action="{{ route('chat.show') }}">
             @csrf
               <input name="user_id" type="hidden" value="{{$user->id}}">
               <button type="submit" class="chatForm_btn">チャットを開く</button>
-            </form> --}}
+            </form>
 
           </div>
         @endforeach

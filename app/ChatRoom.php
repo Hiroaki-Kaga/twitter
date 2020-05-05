@@ -18,3 +18,5 @@ class Chatroom extends Model
     }
     // ここまで追加
 }
+
+

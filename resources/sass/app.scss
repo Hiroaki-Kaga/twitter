@@ -1,4 +1,4 @@
-/* Fonts */
+// Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 /* Variables */
@@ -25,6 +25,8 @@ $fa-font-path: "../webfonts";
 
 @import "edit";
 
-@import "jTinder";
+@import "jTinder"; 
 
-@import "matching"; /* この行を追加する */
+@import "matching";
+
+@import "chat";

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\User; //追加
 use Auth; // 追加
 
 class HomeController extends Controller

@@ -6,24 +6,13 @@
  */
 
 require('./bootstrap');
+
 require('./users');
 
-require('./jquery.jTinder'); //追加
+require('./jquery.jTinder');
 
-require('./jquery.transform2d'); //追加
+require('./jquery.transform2d');
 
-require('./jTinder'); //追加
+require('./jTinder');
 
-window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
-    el: '#app'
-});
+require('./chat'); //この行を追記します。

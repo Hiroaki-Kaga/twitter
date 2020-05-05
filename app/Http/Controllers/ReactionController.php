@@ -46,5 +46,5 @@ class ReactionController extends Controller
         }
 
     }
-    // ここまで追加
+    
 }
