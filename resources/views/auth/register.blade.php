@@ -1,87 +1,47 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
-<div class="signupPage">
-  <header class="header">
-    <div>アカウントを作成</div>
-  </header>
-  <div class='container'>
-
-    <form class="form mt-5" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-    @csrf
-
-      <label for="file_photo" class="rounded-circle userProfileImg">
-        <div class="userProfileImg_description">画像をアップロード</div>
-        <i class="fas fa-camera fa-3x"></i>
-        <input type="file" id="file_photo" name="img_name">
-
-      </label>
-      <div class="userImgPreview" id="userImgPreview">
-        <img id="thumbnail" class="userImgPreview_content" accept="image/*" src="">
-        <p class="userImgPreview_text">画像をアップロード済み</p>
-      </div>
-      <div class="form-group @error('name')has-error @enderror">
-        <label>名前</label>
-        <input type="text" name="name" class="form-control" placeholder="名前を入力してください">
-        @error('name')
-            <span class="errorMessage">
-              {{ $message }}
-            </span>
-        @enderror
-  
+<div class="sinupPage">
+  <div class="titleArea">
+    <h1>アカウントを新規作成</h1>
+    <div class="m-3">or</div>
+      <p class="acountPage_link"><a href="{{ route('login') }}">アカウントにサインイン</a></p>
     </div>
-      <div class="form-group @error('email')has-error @enderror">
-        <label>メールアドレス</label>
-        <input type="email" name="email" class="form-control" placeholder="メールアドレスを入力してください">
-        @error('email')
-            <span class="errorMessage">
-              {{ $message }}
+    <div class="container">
+      <form class="mt-5, signupForm" id="new_user" action="{{ route('register') }}" accept-charset="UTF-8" method="post">
+        {{ csrf_field() }}
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+          <label for="user_name">お名前</label>
+          <input class="form-control" placeholder="名前を入力してください" type="text" name="name" value="{{ old('name') }}" required autofocus>
+          @if ($errors->has('name'))
+            <span class="help-block">
+              <strong>{{ $errors->first('name') }}</strong>
             </span>
-        @enderror
-      </div>
-      <div class="form-group @error('password')has-error @enderror">
-        <label>パスワード</label>
-        <em>6文字以上入力してください</em>
-        <input type="password" name="password" class="form-control" placeholder="パスワードを入力してください">
-        @error('password')
-            <span class="errorMessage">
-              {{ $message }}
-            </span>
-        @enderror
-    </div>
-      <div class="form-group">
-        <label>確認用パスワード</label>
-        <input type="password" name="password_confirmation" class="form-control" placeholder="パスワードを再度入力してください">
-      </div>
-      <div class="form-group">
-        <div><label>性別</label></div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="sex" value="0" type="radio" id="inlineRadio1" checked>
-          <label class="form-check-label" for="inlineRadio1">男</label>
+          @endif
         </div>
-        <div class="form-check form-check-inline">
-        <input class="form-check-input" name="sex" value="1" type="radio" id="inlineRadio2">
-          <label class="form-check-label" for="inlineRadio2">女</label>
+        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+           <label for="user_email">メールアドレス</label>
+          <input class="form-control" placeholder="emailを入力してください" autocomplete="email" type="email" name="email" value="{{ old('email') }}" required>
+            @if ($errors->has('email'))
+              <span class="help-block">
+                <strong>{{ $errors->first('email') }}</strong>
+              </span>
+            @endif
         </div>
-      </div>
-      <div class="form-group @error('self_introduction')has-error @enderror">
-        <label>自己紹介文</label>
-        <textarea class="form-control" name="self_introduction" rows="10"></textarea>
-          @error('self_introduction')
-          <span class="errorMessage">
-            {{ $message }}
-          </span>
-          @enderror
-        </div>  
-    </div>
-
-      <div class="text-center">
-      <button type="submit" class="btn submitBtn">はじめる</button>
-      <div class="linkToLogin">
-        <a href="{{ route('login') }}">ログインはこちら</a>
-      </div>
-      </div>
-    </form>
-  </div>
-</div>
-@endsection
+        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+          <label for="user_password">パスワード</label>
+          <em>(6文字以上入力してください)</em>
+          <br>
+          <input class="form-control" placeholder="パスワードを入力してください" autocomplete="off" type="password" name="password" required>
+            @if ($errors->has('password'))
+              <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+              </span>
+            @endif
+        </div>
+        <div class="form-group">
+          <label for="user_password_confirmation">パスワード確認</label>
+          <input class="form-control" placeholder="パスワードを再度入力してください" autocomplete="off" type="password" name="password_confirmation" required>
+        </div>
+        <div class="text-center">
+          <input type="submit" name="commit" value="アカウントを作成" class="btn submitBtn" data-disable-with="アカウントを作成">

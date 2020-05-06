@@ -13,7 +13,7 @@ use App\User;
 use App\Events\ChatPusher;
 
 use Auth;
-// ここまで追加
+
 
 class ChatController extends Controller
 {
@@ -71,5 +71,18 @@ class ChatController extends Controller
     'chat_messages','chat_room_user_name'));
 
     }
-    // ここまで追加
+    
+    
+    // この行から下を追加します。
+    public static function chat(Request $request){
+
+        $chat = new ChatMessage();
+        $chat->chat_room_id = $request->chat_room_id;
+        $chat->user_id = $request->user_id;
+        $chat->message = $request->message;
+        $chat->save();
+
+        event(new ChatPusher($chat));
+    }
+    
 }
